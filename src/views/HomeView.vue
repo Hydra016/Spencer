@@ -8,9 +8,9 @@
         <div class="mt-5 bg-gray-200 md:px-10 px-5 py-5 rounded">
           <div>
             <p class="font-bold text-xl">{{ blog.title }}</p>
-            <p>{{ blog.content }}</p>
-            <p class="mt-3">{{ blog.created }}</p>
-            <p v-if="blog.edited">Edited on: {{ blog.edited }}</p>
+            <div v-html="blog.content"></div>
+            <p class="mt-3 text-sm">Posted on: {{ blog.created }}</p>
+            <p v-if="blog.edited" class="text-xs">Last edited: {{ blog.edited }}</p>
           </div>
           <div class="mt-5">
             <button @click="deleteBlog(blog.id)" class="mr-3 hover:underline font-bold">
@@ -35,6 +35,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Blog, User } from '../types/index';
+import { parseFromString } from 'dom-parser';
+
 export default defineComponent({
   name: 'HomeView',
   data() {
@@ -62,7 +64,7 @@ export default defineComponent({
     },
     goToBlog(id: number, path: string) {
       this.$router.push(`/${path}/${id}`)
-    }
+    },
   }
 });
 </script>

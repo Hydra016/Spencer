@@ -6,9 +6,9 @@
             <input v-model="blog.title" type="text"
                 class="border border-gray-200 rounded md:w-3/5 px-5 py-2  outline-none" required />
             <label class="mt-5">Content*</label>
-            <textarea v-model="blog.content"
-                class="border border-gray-200 resize-none md:w-3/5 rounded px-5 py-2 outline-none" rows="20"
-                required></textarea>
+            <Editor v-model="blog.content" editorStyle="height: 320px"
+                class=" resize-none md:w-3/5 rounded outline-none" rows="20"
+                required></Editor>
             <input type="submit" class="bg-slate-800 px-5 py-2 rounded text-white cursor-pointer w-28 mt-5" />
         </form>
         <!-- <ToastVue :setShowToast="showToast" title="Post Created" /> -->
@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Blog } from '../types/index';
+import Editor from 'primevue/editor';
 // import ToastVue from '../components/ToastVue.vue';
 
 export default defineComponent({
@@ -41,7 +42,8 @@ export default defineComponent({
         }
     },
     components: {
-        // ToastVue
+        // ToastVue,
+        Editor
     },  
     methods: {
         handleSubmit() {
