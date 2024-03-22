@@ -4,7 +4,7 @@
   <div class="" v-else>
     <nav class="flex items-center justify-between md:mb-10 mb-5 md:px-20 px-5 py-5 border-b-2 border-gray-200">
       <div class="flex items-center">
-        <img @click="goHome" class="w-20 md:mr-5 cursor-pointer" src="./assets/logo.png" />
+        <p @click="goHome" class="font-black text-xl heading text-slate-800 mr-5 mb-1">Spencer</p>
         <router-link class="mr-5 hidden md:block hover:underline" to="/">Home</router-link>
         <router-link to="/create" class="hidden md:block hover:underline">Create</router-link>
       </div>
