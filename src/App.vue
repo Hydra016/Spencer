@@ -1,30 +1,68 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <LoginVue :user="user" @setUserValues="handleUserDetails" :isLoggedIn="isLoggedIn" @login="handleLogin"
+    v-if="!isLoggedIn" />
+  <div class="" v-else>
+    <nav class="flex items-center justify-between md:mb-10 mb-5 md:px-20 px-5 py-5 border-b-2 border-gray-200">
+      <div class="flex items-center">
+        <img @click="goHome" class="w-20 md:mr-5 cursor-pointer" src="./assets/logo.png" />
+        <router-link class="mr-5 hidden md:block hover:underline" to="/">Home</router-link>
+        <router-link class="mr-5 hidden md:block hover:underline" to="/about">About</router-link>
+        <router-link to="/create" class="hidden md:block hover:underline">Create</router-link>
+      </div>
+      <div>
+        <button @click="handleLogout" class="bg-red-600 px-5 py-2 rounded text-white cursor-pointer">Logout</button>
+      </div>
+    </nav>
+    <div class="">
+      <router-view class="md:px-20 px-5 py-5" />
+    </div>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { defineComponent } from 'vue';
+import LoginVue from './views/LoginVue.vue';
+import { User } from './types/index';
 
-nav {
-  padding: 30px;
-}
+export default defineComponent({
+  data() {
+    return {
+      isLoggedIn: false,
+      user: { username: '', password: '' } as User
+    }
+  },
+  components: {
+    LoginVue,
+  },
+  mounted() {
+    const JSONdata = localStorage.getItem('isLoggedIn');
+    const JSONUser = localStorage.getItem('user');
+    if (JSONdata && JSONUser !== null) {
+      this.isLoggedIn = JSON.parse(JSONdata);
+      this.user = JSON.parse(JSONUser);
+    }
+  },
+  methods: {
+    handleLogin(isLoggedIn: boolean) {
+      this.isLoggedIn = isLoggedIn;
+      const jsonData = JSON.stringify(this.isLoggedIn);
+      localStorage.setItem('isLoggedIn', jsonData)
+    },
+    handleUserDetails(user: User) {
+      this.user = user;
+      const jsonData = JSON.stringify(this.user);
+      localStorage.setItem('user', jsonData)
+    },
+    handleLogout() {
+      this.isLoggedIn = false
+      localStorage.clear();
+    },
+    goHome() {
+      this.$router.push('/')
+    }
+  }
+})
+</script>
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<style></style>
