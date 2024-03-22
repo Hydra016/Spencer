@@ -6,7 +6,6 @@
       <div class="flex items-center">
         <img @click="goHome" class="w-20 md:mr-5 cursor-pointer" src="./assets/logo.png" />
         <router-link class="mr-5 hidden md:block hover:underline" to="/">Home</router-link>
-        <router-link class="mr-5 hidden md:block hover:underline" to="/about">About</router-link>
         <router-link to="/create" class="hidden md:block hover:underline">Create</router-link>
       </div>
       <div>
@@ -55,7 +54,7 @@ export default defineComponent({
     },
     handleLogout() {
       this.isLoggedIn = false
-      localStorage.clear();
+      localStorage.removeItem('isLoggedIn');
     },
     goHome() {
       this.$router.push('/')

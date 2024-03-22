@@ -1,8 +1,9 @@
 <template>
   <div class="">
     <p class="md:text-3x text-2xl">Welcome, {{ user.username }}</p>
-    <input type="text" class="border border-gray-200 rounded md:w-3/5 px-5 py-2  mt-5 outline-none"
-      placeholder="search blog..." required />
+    <input @input="searchBlogs(query)" v-model="query" type="text"
+      class="border border-gray-200 rounded md:w-3/5 w-full px-5 py-2  mt-5 outline-none"
+      placeholder="search blog..." />
     <div v-if="blogs.length > 0">
       <div v-for="blog in blogs" :key="blog.id">
         <div class="mt-5 bg-gray-200 md:px-10 px-5 py-5 rounded">
@@ -35,14 +36,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Blog, User } from '../types/index';
-import { parseFromString } from 'dom-parser';
 
 export default defineComponent({
   name: 'HomeView',
   data() {
     return {
       user: {} as User,
-      blogs: [] as Blog[]
+      blogs: [] as Blog[],
+      query: ''
     }
   },
   components: {
@@ -65,6 +66,20 @@ export default defineComponent({
     goToBlog(id: number, path: string) {
       this.$router.push(`/${path}/${id}`)
     },
+    searchBlogs(searchQuery: string) {
+      if (!searchQuery) {
+        const blogsData = localStorage.getItem('blogs')
+        if (blogsData !== null) {
+          this.blogs = JSON.parse(blogsData)
+        }
+      }
+      const filteredBlogs = this.blogs.filter(blog =>
+        blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      this.blogs = filteredBlogs
+
+    }
   }
 });
 </script>

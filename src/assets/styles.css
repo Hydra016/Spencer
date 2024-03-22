@@ -1,16 +1,22 @@
-/* ./src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-/* Order */
 @layer reset, primevue;
 
-/* Reset CSS */
 @layer reset {
     button,
-    input {
-        /* CSS to Reset */
-    }
+    input {}
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Notable&display=swap');
+
+
+.login {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(128, 128, 128, 0.8)), url('../assets/background.jpeg');
+}
+
+.heading {
+    font-family: "Notable", sans-serif;
 }

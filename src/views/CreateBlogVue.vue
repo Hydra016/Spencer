@@ -9,7 +9,7 @@
             <Editor v-model="blog.content" editorStyle="height: 320px"
                 class=" resize-none md:w-3/5 rounded outline-none" rows="20"
                 required></Editor>
-            <input type="submit" class="bg-slate-800 px-5 py-2 rounded text-white cursor-pointer w-28 mt-5" />
+            <input :disabled="!blog.title || !blog.content" type="submit" class="bg-slate-800 px-5 py-2 rounded text-white cursor-pointer w-28 mt-5" />
         </form>
         <!-- <ToastVue :setShowToast="showToast" title="Post Created" /> -->
     </div>
